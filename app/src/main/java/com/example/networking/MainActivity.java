@@ -34,10 +34,7 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         setContentView(R.layout.activity_main);
 
         new JsonFile(this, this).execute(JSON_FILE);
-
-        mountainArrayList.add(new Mountain("Matterhorn"));
-        mountainArrayList.add(new Mountain("Mont Blanc"));
-        mountainArrayList.add(new Mountain("Denali"));
+        //new JsonTask(this).execute(JSON_URL);
 
         adapter = new RecyclerViewAdapter(this, mountainArrayList, new RecyclerViewAdapter.OnClickListener() {
             @Override
