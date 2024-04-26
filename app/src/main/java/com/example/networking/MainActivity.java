@@ -1,7 +1,6 @@
 package com.example.networking;
 
 import android.os.Bundle;
-import android.renderscript.Type;
 import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,19 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AppCompatActivity implements JsonTask.JsonTaskListener {
 
-    private final String JSON_URL = "HTTPS_URL_TO_JSON_DATA_CHANGE_THIS_URL";
+    private final String JSON_URL = "https://mobprog.webug.se/json-api?login=brom";
     private final String JSON_FILE = "mountains.json";
 
     private ArrayList<Mountain> mountainArrayList = new ArrayList<>();
-    //Type type = new TypeToken<List<Mountain>>() {}.getType();
 
     Gson gson = new Gson();
 
@@ -57,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     @Override
     public void onPostExecute(String json) {
         Log.d("MainActivity", json);
+
+        Type type = new TypeToken<List<Mountain>>() {}.getType();
+        mountainArrayList = gson.fromJson(json, type);
+
     }
 
 }
