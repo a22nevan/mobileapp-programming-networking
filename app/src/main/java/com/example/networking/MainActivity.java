@@ -1,6 +1,8 @@
 package com.example.networking;
 
 import android.os.Bundle;
+import android.renderscript.Type;
+import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,8 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AppCompatActivity implements JsonTask.JsonTaskListener {
@@ -18,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
     private final String JSON_FILE = "mountains.json";
 
     private ArrayList<Mountain> mountainArrayList = new ArrayList<>();
+    //Type type = new TypeToken<List<Mountain>>() {}.getType();
+
+    Gson gson = new Gson();
 
     RecyclerViewAdapter adapter;
 
@@ -31,11 +41,6 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         mountainArrayList.add(new Mountain("Matterhorn"));
         mountainArrayList.add(new Mountain("Mont Blanc"));
         mountainArrayList.add(new Mountain("Denali"));
-
-        for(int i = 0; i < mountainArrayList.size(); i++){
-
-            mountainArrayList.add(new Mountain(mountainArrayList.get(i).toString()));
-        }
 
         adapter = new RecyclerViewAdapter(this, mountainArrayList, new RecyclerViewAdapter.OnClickListener() {
             @Override
